@@ -7,13 +7,15 @@ import httplib2
 import os
 import math
 import threading
-from topnews import News
+from topnews import getTopNews
 from meet import grouping
 from pnr import getpnr
 from jobs import getjobs
 from currency import fetch_currency_exchange_rate
 from weather import get_weather
+from joke import lame_jokes
 from translate import translate_message
+from hack import eventz
 
 BOT_MAIL = "ghost-bot@zulipchat.com"
 
@@ -25,7 +27,6 @@ class Ghost(object):
     def __init__(self):
         self.client = zulip.Client(config_file="~/.zuliprc")
         self.subscribe_all()
-        self.news = News()
 
     def subscribe_all(self):
         json = self.client.get_streams()["streams"]
@@ -33,47 +34,43 @@ class Ghost(object):
         self.client.add_subscriptions(streams)
     
     def process(self, msg):
-        message_id = msg["id"]
         content  = msg["content"].split()
-        sender_email = msg["sender_email"]
-        
         stream_name = msg["display_recipient"]
         
-        #print(content)
-        #print(content[0],content[1])
-        #if sender_email == BOT_MAIL:
-        #    return
+        
         if content[0].lower() == "@**ghost**":
             message = ""
             #print("yes")
             if content[1].lower() == "hello" or content[1].lower() == "hi":
                 message = "Hola"
             elif content[1].lower() == "news":
+                topic = content[2].lower()
                 try:
-                    news = self.news.getTopNews()
-                    for item in news:
-                        message += "**"+item.title+"**"
+                    news = getTopNews(topic)
+                    for i in range(10):
+                        message += "**"+news[i]['title']+"**"
                         message += '\n'
-                        message += item.des
+                        message += news[i]['desc']
                         message += '\n\n'
                 except:
                     message = "No news as of now ... try something like football"
+
             elif content[1].lower() == "meetup":
-                name = ""
-                for i in range(2,len(content)-1):
-                    name += content[i]
-                    name += " "
-                name += content[len(content)-1]
+                name = content[2:]
                 #print(name)
+                try:
+                    dicti = grouping(name)
+                    message += "**MeetUp Event Details" + '\n'
+                    message += "Name: " + dicti["Name"] + '\n'
+                    message += "Organizer: " + dicti["Organizer"] + '\n'
+                    message += "City: " + dicti["City"] + '\n'
+                    message += "Next Event: " + dicti["Upcoming Event"]["Event Name"] + '\n'
+                    message += "RSVP: " + str(dicti["Upcoming Event"]["RSVP"]) + '\n'
+                    message += "Time: " + dicti["Upcoming Event"]["Time"] + '\n'
+                    message += "Link: " + dicti["Link"] + '\n'
+                except:
+                    message = "Try a valid group name :)"
                 
-                dicti = grouping(name)
-                message += "Name: " + dicti["Name"] + '\n'
-                message += "Organizer: " + dicti["Organizer"] + '\n'
-                message += "City: " + dicti["City"] + '\n'
-                message += "Next Event: " + dicti["Upcoming Event"]["Event Name"] + '\n'
-                message += "RSVP: " + str(dicti["Upcoming Event"]["RSVP"]) + '\n'
-                message += "Time: " + dicti["Upcoming Event"]["Time"] + '\n'
-                message += "Link: " + dicti["Link"] + '\n'
 
             elif content[1].lower() == "pnr":
                 num = int(content[2])
@@ -86,7 +83,6 @@ class Ghost(object):
                 try:
                     message = content[2:]
                     message = " ".join(message)
-                    
                     message = translate_message(message)
                 except:
                     message = "Error in format"
@@ -112,14 +108,20 @@ class Ghost(object):
                     message += "Last Updated: *{}*".format(currency['date'])
                 else:
                     message = "Please ask the query in correct format."
-            
+
+            elif content[1].lower() == "joke":
+                try:
+                    message = lame_jokes()
+                except:
+                    message = "Not that lame though .. try something else"
+
             elif content[1].lower() == "weather":
                 try:
                     if len(content) > 2 and content[2].lower() != "":
                         
                         weather = get_weather(content[2].lower())
                         if str(weather['cod']) != "404":
-                            message += "**Weather report for {}**\n".format(content[2].lower())
+                            message += "**Weather status of {}**\n".format(content[2].lower())
                             message += "Climate: **{}**\n".format(str(weather['weather'][0]['description']))
                             message += "Temperature: **{}**\n".format(str(weather['main']['temp']) + "° C")
                             message += "Pressure: **{}**\n".format(str(weather['main']['pressure']) + " hPa")
@@ -131,10 +133,24 @@ class Ghost(object):
                         message = "Please add a location name."
                 except:
                     message = "Something went wrong"
-                
+
+            elif content[1].lower() == "contest":
+                try:
+                    message = eventz()
+                except:
+                    message = "Check connection"
+            
             else:
-                message += "Show top 10 news : **Ghost news**\n"
-                message += "Show MeetUp group details and next event status"
+                message += "Show news according to your choice : **Ghost news topic-name**\n"
+                message += "Show MeetUp group details and next event status : **Ghost meetup group-name**\n"
+                message += "Crack a joke ... even a lame one : **Ghost joke**\n"
+                message += "Get the current currency conversion ratios : **Ghost currency currency-1 to currency-2** \nor **Ghost currency currency-1** \n"
+                message += "Get a list of upcoming coding events: **Ghost contest**\n"
+                message += "Get weather status of a location: **Ghost weather location\n"
+                message += "Get a list of new job openings in your locality: **Ghost jobs**\n"
+                message += "Translate a word or sentence to English: **Ghost translate word/sentence**\n"
+                message += "Check your pnr status: **Ghost pnr pnr-number**\n"
+                
 
             self.client.send_message({
                 "type": "stream",
@@ -151,5 +167,5 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("Adios fellas")
+        print("\nAdios fellas")
         sys.exit(0)
