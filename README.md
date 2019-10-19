@@ -27,5 +27,7 @@
 
 ![](https://i.ibb.co/tBMjJPg/Screenshot-2019-10-19-home-XDSA-Zulip-3.png)
 
-7. 
+7. Check your PNR status. 
+
+![]()
 
