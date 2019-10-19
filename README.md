@@ -29,5 +29,13 @@
 
 7. Check your PNR status. 
 
-![]()
+![](https://i.ibb.co/q9nfgHf/Screenshot-2019-10-19-home-XDSA-Zulip-6.png)
+
+8. Get updated with latest currency conversion ratios. 
+
+![](https://i.ibb.co/QrP5Gj0/Screenshot-2019-10-19-home-XDSA-Zulip-5.png)
+
+9. Update yourself with the upcoming coding contests. 
+
+![](https://i.ibb.co/GcXDvZF/Screenshot-2019-10-19-home-XDSA-Zulip-1.png)
 
