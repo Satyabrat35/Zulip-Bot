@@ -7,6 +7,7 @@ import httplib2
 import os
 import math
 import threading
+
 from topnews import getTopNews
 from meet import grouping
 from pnr import getpnr
@@ -41,8 +42,8 @@ class Ghost(object):
         if content[0].lower() == "@**ghost**":
             message = ""
             #print("yes")
-            if content[1].lower() == "hello" or content[1].lower() == "hi":
-                message = "Hola"
+            if content[1].lower() == "hello" or content[1].lower() == "hi" or content[0].lower() == "hey":
+                message = "Hola .. ever wondered my name is Ghost because we are **Everywhere**"
             elif content[1].lower() == "news":
                 topic = content[2].lower()
                 try:
@@ -70,14 +71,6 @@ class Ghost(object):
                     message += "Link: " + dicti["Link"] + '\n'
                 except:
                     message = "Try a valid group name :)"
-                
-
-            elif content[1].lower() == "pnr":
-                num = int(content[2])
-                try:
-                    message = getpnr(num)
-                except:
-                    message = "Connection Error"
             
             elif content[1].lower() == "translate":
                 try:
@@ -146,7 +139,7 @@ class Ghost(object):
                 message += "Crack a joke ... even a lame one : **Ghost joke**\n"
                 message += "Get the current currency conversion ratios : **Ghost currency currency-1 to currency-2** \nor **Ghost currency currency-1** \n"
                 message += "Get a list of upcoming coding events: **Ghost contest**\n"
-                message += "Get weather status of a location: **Ghost weather location\n"
+                message += "Get weather status of a location: **Ghost weather location**\n"
                 message += "Get a list of new job openings in your locality: **Ghost jobs**\n"
                 message += "Translate a word or sentence to English: **Ghost translate word/sentence**\n"
                 message += "Check your pnr status: **Ghost pnr pnr-number**\n"
