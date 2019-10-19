@@ -1,6 +1,6 @@
 ## Ghost
 
-![](https://i.ibb.co/5KRz0J1/dv2.jpg)
+![]()
 
 ## Features -
 1. Get the recent news of your choice.
