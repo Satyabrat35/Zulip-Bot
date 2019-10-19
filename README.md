@@ -1,6 +1,6 @@
-## Ghost
+## Ghost 
 
-![]()
+![](https://i.ibb.co/qnKhfY7/realgh.jpg)
 
 ## Features -
 1. Get the recent news of your choice - 
@@ -45,11 +45,18 @@
 
 9. Update yourself with the upcoming coding contests - 
 	``` Ghost contest ```
+    
 ![](https://i.ibb.co/GcXDvZF/Screenshot-2019-10-19-home-XDSA-Zulip-1.png)
 
 ## Working - 
-- Create a Zulip Realm
+- Create a [Zulip Realm](https://zulip.com/new/)
 - Create a bot named Ghost from settings in gear box menu
 - Download the zuliprc file for your bot and place it in your home directory. Make sure it is of format ```.zuliprc```
 - Run the bot.py file ``` python3 bot.py ```
 - Go to your chat terminal and interact with ghost :)
+
+### Contributors - 
+1. [Satyabrat Bhol](https://github.com/Satyabrat35)
+2. [Abhinav Gupta](https://github.com/abhinav99ash29)
+3. [Deepak Hirawat](https://github.com/Vatapi)
+4. [Aditya Kumar](https://github.com/adityaXXX/)
