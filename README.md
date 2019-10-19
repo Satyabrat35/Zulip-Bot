@@ -47,3 +47,9 @@
 	``` Ghost contest ```
 ![](https://i.ibb.co/GcXDvZF/Screenshot-2019-10-19-home-XDSA-Zulip-1.png)
 
+## Working - 
+- Create a Zulip Realm
+- Create a bot named Ghost from settings in gear box menu
+- Download the zuliprc file for your bot and place it in your home directory. Make sure it is of format ```.zuliprc```
+- Run the bot.py file ``` python3 bot.py ```
+- Go to your chat terminal and interact with ghost :)
