@@ -11,4 +11,8 @@
 
 ![](https://i.ibb.co/w4hLq32/Screenshot-2019-10-19-home-XDSA-Zulip-7.png)
 
-3. 
+3. Know the current weather conditions of a Location
+
+![](https://i.ibb.co/89QPKP1/Screenshot-2019-10-19-home-XDSA-Zulip.png)
+
+4. 
