@@ -19,4 +19,13 @@
 
 ![](https://i.ibb.co/zN2SzJz/Screenshot-2019-10-19-home-XDSA-Zulip-2.png)
 
-5. 
+5. Translate a word or sentence to English. We used Google Translator APIs to fetch the results.
+
+![](https://i.ibb.co/FbHKNSG/Screenshot-2019-10-19-home-XDSA-Zulip-8.png)
+
+6. Ghost tells you a joke.
+
+![](https://i.ibb.co/tBMjJPg/Screenshot-2019-10-19-home-XDSA-Zulip-3.png)
+
+7. 
+
