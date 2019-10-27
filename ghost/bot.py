@@ -57,21 +57,29 @@ class Ghost(object):
                     message = "No news as of now ... try something like football"
 
             elif content[1].lower() == "meetup":
-                name = content[2:]
-                #print(name)
+                name = ""
+                for i in range(2,len(content)-1):
+                    name+=content[i]
+                    name+=" "
+                name+=content[len(content)-1]
+                
+                dicti = grouping(name)
+                message += "**MeetUp Event Details**" + '\n'
+                message += "Name: " + dicti["Name"] + '\n'
+                message += "Organizer: " + dicti["Organizer"] + '\n'
+                message += "City: " + dicti["City"] + '\n'
+                message += "Next Event: " + dicti["Upcoming Event"]["Event Name"] + '\n'
+                message += "RSVP: " + str(dicti["Upcoming Event"]["RSVP"]) + '\n'
+                message += "Time: " + dicti["Upcoming Event"]["Time"] + '\n'
+                message += "Link: " + dicti["Link"] + '\n'
+                
+            elif content[1].lower() == "pnr":
+                num = int(content[2])
                 try:
-                    dicti = grouping(name)
-                    message += "**MeetUp Event Details" + '\n'
-                    message += "Name: " + dicti["Name"] + '\n'
-                    message += "Organizer: " + dicti["Organizer"] + '\n'
-                    message += "City: " + dicti["City"] + '\n'
-                    message += "Next Event: " + dicti["Upcoming Event"]["Event Name"] + '\n'
-                    message += "RSVP: " + str(dicti["Upcoming Event"]["RSVP"]) + '\n'
-                    message += "Time: " + dicti["Upcoming Event"]["Time"] + '\n'
-                    message += "Link: " + dicti["Link"] + '\n'
+                    message = getpnr(num)
                 except:
-                    message = "Try a valid group name :)"
-            
+                    message = "Try valid PNR"
+                    
             elif content[1].lower() == "translate":
                 try:
                     message = content[2:]
